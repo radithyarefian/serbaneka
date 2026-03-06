@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/database/preference.dart';
+import 'package:serbaneka/extensions/navigator.dart';
+import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -9,13 +12,13 @@ class AdminLogin extends StatefulWidget {
 
 class _AdminLoginState extends State<AdminLogin> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emaiController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailAdminController = TextEditingController();
+  final TextEditingController passwordAdminController = TextEditingController();
   bool _isVisibility = false;
-  bool isRememberMe = false;
-  bool emailError = false;
-  bool passwordError = false;
-  void visibilityOnOf() {
+  bool _isRememberMe = false;
+  bool emailAdminError = false;
+  bool passwordAdminError = false;
+  void _visibilityOnOf() {
     _isVisibility = !_isVisibility;
     setState(() {});
   }
@@ -71,28 +74,41 @@ class _AdminLoginState extends State<AdminLogin> {
 
                 /// BAGIAN PELANGGAN DAN ADMIN ///
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // TEXT PELANGGAN (TIDAK AKTIF) //
-                    Text(
-                      "Pelanggan",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w900,
-                        fontSize: 15,
-                        color: Color(0x80000000), // HITAM 50%
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Pelanggan",
+                            style: TextStyle(
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.w900,
+                              fontSize: 15,
+                              color: Color(0x80000000), // HITAM 50%
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                    //SizedBox(width: 100),
-
+                    SizedBox(width: 80),
                     // TEXT ADMIN (AKTIF) //
-                    Text(
-                      "Admin",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.w900,
-                        fontSize: 15,
-                        color: Color(0xFF7B6EF6), // warna ungu utama
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Admin",
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15,
+                            color: Color(0xFF7B6EF6), // warna ungu utama
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -136,7 +152,7 @@ class _AdminLoginState extends State<AdminLogin> {
                         color: Colors.black,
                       ),
                     ),
-
+                    const SizedBox(height: 5),
                     // TEXT SUBTITLE //
                     const Text(
                       "Masukkan identitas admin anda",
@@ -178,7 +194,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
                               // TEXTFORMFIELD EMAIL ATAU USERNAME ADMIN //
                               TextFormField(
-                                controller: emaiController,
+                                controller: emailAdminController,
                                 style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                   hintText: "Masukkan email atau username",
@@ -207,7 +223,13 @@ class _AdminLoginState extends State<AdminLogin> {
                                     vertical: 14,
                                     horizontal: 12,
                                   ),
-
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: const Color(0XFFE11D48),
+                                      width: 1,
+                                    ),
+                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     borderSide: BorderSide(
@@ -248,7 +270,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
                               // TEXTFORMFIELD PASSWORD //
                               TextFormField(
-                                controller: passwordController,
+                                controller: passwordAdminController,
                                 obscureText: !_isVisibility,
                                 style: const TextStyle(color: Colors.black),
 
@@ -275,7 +297,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
                                   // ICON KANAN (VISIBILITY)
                                   suffixIcon: IconButton(
-                                    onPressed: visibilityOnOf,
+                                    onPressed: _visibilityOnOf,
                                     icon: Icon(
                                       _isVisibility
                                           ? Icons.visibility
@@ -291,7 +313,13 @@ class _AdminLoginState extends State<AdminLogin> {
                                     vertical: 14,
                                     horizontal: 12,
                                   ),
-
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: const Color(0XFFE11D48),
+                                      width: 1,
+                                    ),
+                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     borderSide: BorderSide(
@@ -309,6 +337,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                   ),
                                 ),
 
+                                // VALIDATOR KATA SANDI //
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Kata sandi tidak boleh kosong";
@@ -316,7 +345,30 @@ class _AdminLoginState extends State<AdminLogin> {
                                   if (value.length < 6) {
                                     return "Kata sandi minimal 6 karakter";
                                   }
-                                  return null;
+
+                                  // Regex untuk huruf besar
+                                  if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                                    return "Kata sandi minimal 1 huruf besar";
+                                  }
+
+                                  // Regex untuk huruf kecil
+                                  if (!RegExp(r'[a-z]').hasMatch(value)) {
+                                    return "Kata sandi minimal 1 huruf kecil";
+                                  }
+
+                                  // Regex untuk angka
+                                  if (!RegExp(r'\d').hasMatch(value)) {
+                                    return "Kata sandi harus mengandung minimal 1 angka";
+                                  }
+
+                                  // Regex untuk karakter spesial
+                                  if (!RegExp(
+                                    r'[!@#$%^&*(),.?":{}|<>]',
+                                  ).hasMatch(value)) {
+                                    return "Kata sandi harus mengandung minimal 1 karakter spesial";
+                                  }
+
+                                  return null; // valid
                                 },
                               ),
 
@@ -333,7 +385,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          isRememberMe = !isRememberMe;
+                                          _isRememberMe = !_isRememberMe;
                                         });
                                       },
                                       child: Row(
@@ -342,18 +394,18 @@ class _AdminLoginState extends State<AdminLogin> {
                                             width: 20,
                                             height: 20,
                                             decoration: BoxDecoration(
-                                              color: isRememberMe
+                                              color: _isRememberMe
                                                   ? Color(0xFF7B6EF6)
                                                   : Colors.transparent,
                                               borderRadius:
-                                                  BorderRadius.circular(4),
+                                                  BorderRadius.circular(7),
                                               border: Border.all(
                                                 color: Colors.black.withOpacity(
                                                   0.5,
                                                 ),
                                               ),
                                             ),
-                                            child: isRememberMe
+                                            child: _isRememberMe
                                                 ? const Icon(
                                                     Icons.check,
                                                     size: 18,
@@ -402,7 +454,8 @@ class _AdminLoginState extends State<AdminLogin> {
                                   ), // sama dengan TextFormField
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      // : aksi login
+                                      PreferenceHandler().storingIsLogin(true);
+                                      context.push(AdminBeranda());
                                       if (_formKey.currentState!.validate()) {
                                         // proses login
                                       }
@@ -441,10 +494,10 @@ class _AdminLoginState extends State<AdminLogin> {
                                   ),
                                 ),
                               ),
-                
+
                               Column(
                                 children: [
-                                  // GARIS ATAU
+                                  // GARIS ATAU //
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 20,
@@ -492,8 +545,10 @@ class _AdminLoginState extends State<AdminLogin> {
                                         maxWidth: 315,
                                       ),
                                       child: ElevatedButton(
-                                        onPressed: () {
-                                          // : login dengan Google
+                                        onPressed: () async {
+                                          var dataIsLogin =
+                                              await PreferenceHandler.getIsLogin();
+                                          print(dataIsLogin);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: const Color(
@@ -538,7 +593,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 1),
+                                  const SizedBox(height: 15),
                                   // BAGIAN BELUM PUNYA AKUN //
                                   Center(
                                     child: Row(

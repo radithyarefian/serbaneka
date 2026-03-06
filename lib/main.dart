@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/database/preference.dart';
+import 'package:serbaneka/view/login/admin_daftar.dart';
 import 'package:serbaneka/view/login/admin_login.dart';
+import 'package:serbaneka/view/login/pelanggan_login.dart';
+import 'package:serbaneka/view/splash_screen/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PreferenceHandler().init();
   runApp(const MyApp());
 }
 
@@ -31,8 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: 'admin',
+      routes: {
+        '/admin': (context) => AdminLogin(),
+        '/pelanggan': (context) => PelangganLogin(),
+      },
       debugShowCheckedModeBanner: false,
-      home: const AdminLogin(),
+      home: const AdminDaftar(),
     );
   }
 }
