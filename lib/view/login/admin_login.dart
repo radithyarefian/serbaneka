@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:serbaneka/database/preference.dart';
 import 'package:serbaneka/extensions/navigator.dart';
 import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
+import 'package:serbaneka/view/login/admin_daftar.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -594,6 +595,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                     ),
                                   ),
                                   const SizedBox(height: 15),
+
                                   // BAGIAN BELUM PUNYA AKUN //
                                   Center(
                                     child: Row(
@@ -611,7 +613,13 @@ class _AdminLoginState extends State<AdminLogin> {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            // nanti bisa diisi aksi klik
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AdminDaftar(),
+                                              ),
+                                            );
                                           },
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets

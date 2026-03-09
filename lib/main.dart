@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:serbaneka/database/preference.dart';
+import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
+import 'package:serbaneka/view/halaman_admin/admin_produk.dart';
+import 'package:serbaneka/view/halaman_admin/admin_profile.dart';
 import 'package:serbaneka/view/login/admin_daftar.dart';
 import 'package:serbaneka/view/login/admin_login.dart';
 import 'package:serbaneka/view/login/pelanggan_login.dart';
@@ -43,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         '/pelanggan': (context) => PelangganLogin(),
       },
       debugShowCheckedModeBanner: false,
-      home: const AdminDaftar(),
+      home: const SplashScreen(),
     );
   }
 }
