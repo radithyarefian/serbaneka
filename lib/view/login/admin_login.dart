@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:serbaneka/database/preference.dart';
+import 'package:serbaneka/database/sqflite.dart';
 import 'package:serbaneka/extensions/navigator.dart';
-import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
+import 'package:serbaneka/model/admin_model.dart';
+import 'package:serbaneka/view/halaman_admin/admin_navbar.dart';
 import 'package:serbaneka/view/login/admin_daftar.dart';
 
 class AdminLogin extends StatefulWidget {
@@ -385,6 +387,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                     // CHECKBOX DAN TEXT "INGAT SAYA" //
                                     GestureDetector(
                                       onTap: () {
+                                        DBHelper.getData();
                                         setState(() {
                                           _isRememberMe = !_isRememberMe;
                                         });
@@ -454,11 +457,38 @@ class _AdminLoginState extends State<AdminLogin> {
                                     maxWidth: 315,
                                   ), // sama dengan TextFormField
                                   child: ElevatedButton(
-                                    onPressed: () {
-                                      PreferenceHandler().storingIsLogin(true);
-                                      context.push(AdminBeranda());
-                                      if (_formKey.currentState!.validate()) {
-                                        // proses login
+                                    onPressed: () async {
+                                      final AdminModel? login =
+                                          await DBHelper.loginAdmin(
+                                            email: emailAdminController.text,
+                                            password:
+                                                passwordAdminController.text,
+                                          );
+                                      if (login != null) {
+                                        PreferenceHandler().storingIsLogin(
+                                          true,
+                                        );
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text("Login Berhasil"),
+                                          ),
+                                        );
+                                        await Future.delayed(
+                                          Duration(seconds: 2),
+                                        );
+                                        context.pushReplacement(AdminNavbar());
+                                      } else {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              "Login gagal, email atau password tidak terdaftar",
+                                            ),
+                                          ),
+                                        );
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/database/sqflite.dart';
+import 'package:serbaneka/model/admin_model.dart';
 import 'package:serbaneka/view/login/admin_login.dart';
 
 class AdminDaftar extends StatefulWidget {
@@ -761,15 +763,23 @@ class _AdminDaftarState extends State<AdminDaftar> {
                                         setState(() {
                                           _checkboxError = !_isRememberMe;
                                         });
-
                                         if (_formKey.currentState!.validate() &&
                                             _isRememberMe) {
+                                          DBHelper.registerAdmin(
+                                            AdminModel(
+                                              email: emailAdminDaftarController
+                                                  .text,
+                                              password:
+                                                  passwordAdminDaftar1Controller
+                                                      .text,
+                                            ),
+                                          );
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(
                                             const SnackBar(
                                               content: Text(
-                                                "Pendaftaran berhasil diproses",
+                                                "Pendaftaran Berhasil",
                                               ),
                                             ),
                                           );
