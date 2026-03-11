@@ -1,4 +1,6 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
 import 'package:serbaneka/view/halaman_admin/admin_laporan.dart';
 import 'package:serbaneka/view/halaman_admin/admin_produk.dart';
@@ -24,47 +26,30 @@ class _AdminNavbarState extends State<AdminNavbar> {
     AdminLaporan(),
     AdminProfile(),
   ];
+
+  final items = <Widget>[
+    SvgPicture.asset("assets/navbar/beranda.svg", width: 25, height: 25),
+    SvgPicture.asset("assets/navbar/produk.svg", width: 25, height: 25),
+    SvgPicture.asset("assets/navbar/laporan.svg", width: 25, height: 25),
+    SvgPicture.asset("assets/navbar/profil.svg", width: 25, height: 25),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: listWidget.elementAt(_currentIndex),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Colors.black.withOpacity(0.2), // hitam 20%
-              width: 1.5,
-            ),
-          ),
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
+      bottomNavigationBar: Theme(
+        data: Theme.of(
+          context,
+        ).copyWith(iconTheme: const IconThemeData(color: Colors.white)),
+        child: CurvedNavigationBar(
+          color: Color(0xFF7B6EF6),
+          backgroundColor: Colors.transparent,
+          height: 60,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 250),
+          items: items,
           onTap: ontapItem,
-
-          selectedItemColor: const Color(0xFF7B6EF6), // ungu aktif
-          unselectedItemColor: Colors.black.withOpacity(0.5), // hitam 50%
-
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
-
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
-
-          type: BottomNavigationBarType.fixed,
-
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: "beranda",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.category_outlined),
-              label: "produk",
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.task), label: "laporan"),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              label: "profil",
-            ),
-          ],
         ),
       ),
     );

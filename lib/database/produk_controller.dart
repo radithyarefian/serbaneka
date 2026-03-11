@@ -14,4 +14,22 @@ class ProdukController {
     print(results.map((e) => ProdukModel.fromMap(e)).toList());
     return results.map((e) => ProdukModel.fromMap(e)).toList();
   }
+
+  static Future<int> updateProduk(ProdukModel produk) async {
+    final dbs = await DBHelper.db();
+    if (produk.id == null) {
+      throw Exception("ID Wajib ada");
+    }
+    return dbs.update(
+      'produk',
+      produk.toMap(),
+      where: 'id = ?',
+      whereArgs: [produk.id],
+    );
+  }
+
+  static Future<int> deleteProduk(int id) async {
+    final dbs = await DBHelper.db();
+    return dbs.delete('produk', where: 'id = ?', whereArgs: [id]);
+  }
 }

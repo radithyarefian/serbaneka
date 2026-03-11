@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:serbaneka/database/preference.dart';
-import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
-import 'package:serbaneka/view/halaman_admin/admin_laporan.dart';
-import 'package:serbaneka/view/halaman_admin/admin_produk.dart';
-import 'package:serbaneka/view/halaman_admin/admin_profile.dart';
-import 'package:serbaneka/view/halaman_admin/edit_produk.dart';
-import 'package:serbaneka/view/halaman_admin/hapus_produk.dart';
-import 'package:serbaneka/view/halaman_admin/tambah_produk.dart';
-import 'package:serbaneka/view/login/admin_daftar.dart';
+import 'package:serbaneka/view/halaman_admin/admin_navbar.dart';
 import 'package:serbaneka/view/login/admin_login.dart';
 import 'package:serbaneka/view/login/pelanggan_login.dart';
-import 'package:serbaneka/view/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
         '/pelanggan': (context) => PelangganLogin(),
       },
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const AdminNavbar(),
     );
   }
 }

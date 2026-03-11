@@ -12,7 +12,7 @@ class DBHelper {
           'CREATE TABLE admin (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)',
         );
         await db.execute(
-          'CREATE TABLE produk (id INTEGER PRIMARY KEY AUTOINCREMENT, namaProduk TEXT, kodeSku TEXT, kategoriProduk TEXT,  hargaJual INTEGER, jumlahStok INTEGER, deskripsiProduk TEXT)',
+          'CREATE TABLE produk (id INTEGER PRIMARY KEY AUTOINCREMENT, namaProduk TEXT, kodeSku TEXT, kategoriProduk TEXT,  hargaJual INTEGER, jumlahStok INTEGER, deskripsiProduk TEXT, fotoProduk TEXT)',
         );
       },
       version: 2,

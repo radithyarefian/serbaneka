@@ -8,6 +8,7 @@ class ProdukModel {
   final int? hargaJual;
   final int? jumlahStok;
   final String? deskripsiProduk;
+  final String? fotoProduk;
   ProdukModel({
     this.id,
     this.namaProduk,
@@ -16,6 +17,7 @@ class ProdukModel {
     this.hargaJual,
     this.jumlahStok,
     this.deskripsiProduk,
+    this.fotoProduk,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,6 +29,7 @@ class ProdukModel {
       'hargaJual': hargaJual,
       'jumlahStok': jumlahStok,
       'deskripsiProduk': deskripsiProduk,
+      'fotoProduk': fotoProduk,
     };
   }
 
@@ -39,6 +42,7 @@ class ProdukModel {
       hargaJual: map['hargaJual']?.toInt(),
       jumlahStok: map['jumlahStok']?.toInt(),
       deskripsiProduk: map['deskripsiProduk'],
+      fotoProduk: map['fotoProduk'],
     );
   }
 

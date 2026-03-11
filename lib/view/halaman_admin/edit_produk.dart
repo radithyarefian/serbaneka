@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:serbaneka/database/produk_controller.dart';
+import 'package:serbaneka/model/produk_model.dart';
 
 class EditProduk extends StatefulWidget {
-  const EditProduk({super.key});
+  final ProdukModel produk;
+  const EditProduk({super.key, required this.produk});
 
   @override
   State<EditProduk> createState() => _EditProdukState();
@@ -15,6 +21,40 @@ class _EditProdukState extends State<EditProduk> {
   final TextEditingController deskripsiController = TextEditingController();
 
   String kategori = "ATK";
+
+  File? fotoBaru;
+  final ImagePicker picker = ImagePicker();
+  @override
+  void initState() {
+    super.initState();
+
+    namaController.text = widget.produk.namaProduk ?? "";
+    skuController.text = widget.produk.kodeSku ?? "";
+    hargaController.text = widget.produk.hargaJual.toString();
+    stokController.text = widget.produk.jumlahStok.toString();
+    deskripsiController.text = widget.produk.deskripsiProduk ?? "";
+
+    List<String> kategoriList = ["ATK", "Seragam", "Listrik"];
+
+    if (kategoriList.contains(widget.produk.kategoriProduk)) {
+      kategori = widget.produk.kategoriProduk!;
+    } else {
+      kategori = "ATK";
+    }
+  }
+
+  Future<void> pilihFoto() async {
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 70,
+    );
+
+    if (image != null) {
+      setState(() {
+        fotoBaru = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,25 +77,68 @@ class _EditProdukState extends State<EditProduk> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// FOTO PRODUK
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey.shade400),
-              ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.deepPurple,
-                    size: 40,
-                  ),
-                  SizedBox(height: 10),
-                  Text("Ubah Foto Produk", style: TextStyle(fontSize: 16)),
-                ],
+            GestureDetector(
+              onTap: pilihFoto,
+              child: Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade400),
+                  color: Colors.grey.shade300,
+                ),
+                child: Stack(
+                  children: [
+                    /// FOTO PRODUK
+                    if (fotoBaru != null)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.file(
+                          fotoBaru!,
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    else if (widget.produk.fotoProduk != null &&
+                        File(widget.produk.fotoProduk!).existsSync())
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.file(
+                          File(widget.produk.fotoProduk!),
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+
+                    /// OVERLAY UBAH FOTO
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(Icons.edit, color: Colors.white, size: 16),
+                            SizedBox(width: 5),
+                            Text(
+                              "Ubah Foto",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
 
@@ -113,10 +196,8 @@ class _EditProdukState extends State<EditProduk> {
               decoration: inputDecoration(""),
               items: const [
                 DropdownMenuItem(value: "ATK", child: Text("ATK")),
-                DropdownMenuItem(
-                  value: "Elektronik",
-                  child: Text("Elektronik"),
-                ),
+                DropdownMenuItem(value: "Seragam", child: Text("Seragam")),
+                DropdownMenuItem(value: "Listrik", child: Text("Listrik")),
               ],
               onChanged: (value) {
                 setState(() {
@@ -236,7 +317,22 @@ class _EditProdukState extends State<EditProduk> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  final updatedProduk = ProdukModel(
+                    id: widget.produk.id,
+                    namaProduk: namaController.text,
+                    kodeSku: skuController.text,
+                    kategoriProduk: kategori,
+                    hargaJual: int.parse(hargaController.text),
+                    jumlahStok: int.parse(stokController.text),
+                    deskripsiProduk: deskripsiController.text,
+                    fotoProduk: fotoBaru?.path ?? widget.produk.fotoProduk,
+                  );
+
+                  await ProdukController.updateProduk(updatedProduk);
+
+                  Navigator.pop(context, true);
+                },
                 child: const Text(
                   "SIMPAN PERUBAHAN",
                   style: TextStyle(

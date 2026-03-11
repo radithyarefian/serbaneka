@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/model/produk_model.dart';
+import 'dart:io';
+import 'package:serbaneka/database/produk_controller.dart';
 
 class HapusProduk extends StatefulWidget {
-  const HapusProduk({super.key});
+    final ProdukModel produk;
+  const HapusProduk({super.key,required this.produk});
 
   @override
   State<HapusProduk> createState() => _HapusProdukState();
@@ -71,12 +75,20 @@ class _HapusProdukState extends State<HapusProduk> {
                   /// PRODUCT IMAGE
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      "assets/images/buku_sidu.png",
-                      width: 70,
-                      height: 90,
-                      fit: BoxFit.cover,
-                    ),
+                    child: (widget.produk.fotoProduk != null &&
+                            File(widget.produk.fotoProduk!).existsSync())
+                        ? Image.file(
+                            File(widget.produk.fotoProduk!),
+                            width: 70,
+                            height: 90,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            width: 70,
+                            height: 90,
+                            color: Colors.grey.shade300,
+                            child: const Icon(Icons.image),
+                          ),
                   ),
 
                   const SizedBox(width: 15),
@@ -86,8 +98,8 @@ class _HapusProdukState extends State<HapusProduk> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Buku Tulis Sidu Isi 38",
+                        Text(
+                          widget.produk.namaProduk ?? "-",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -96,8 +108,8 @@ class _HapusProdukState extends State<HapusProduk> {
 
                         const SizedBox(height: 4),
 
-                        const Text(
-                          "ATK",
+                        Text(
+                          widget.produk.kategoriProduk ?? "-",
                           style: TextStyle(
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
@@ -106,8 +118,8 @@ class _HapusProdukState extends State<HapusProduk> {
 
                         const SizedBox(height: 4),
 
-                        const Text(
-                          "SKU: SKU-2026-BT-001",
+                        Text(
+                          "SKU: ${widget.produk.kodeSku ?? "-"}",
                           style: TextStyle(color: Colors.black45),
                         ),
 
@@ -118,7 +130,7 @@ class _HapusProdukState extends State<HapusProduk> {
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children:  [
                                 Text(
                                   "STOK",
                                   style: TextStyle(
@@ -127,7 +139,7 @@ class _HapusProdukState extends State<HapusProduk> {
                                   ),
                                 ),
                                 Text(
-                                  "60 Unit",
+                                  "${widget.produk.jumlahStok ?? 0} Unit",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -137,7 +149,7 @@ class _HapusProdukState extends State<HapusProduk> {
 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children:  [
                                 Text(
                                   "HARGA",
                                   style: TextStyle(
@@ -146,7 +158,7 @@ class _HapusProdukState extends State<HapusProduk> {
                                   ),
                                 ),
                                 Text(
-                                  "Rp 38.000",
+                                  "Rp ${widget.produk.hargaJual ?? 0}",
                                   style: TextStyle(
                                     color: Colors.deepPurple,
                                     fontWeight: FontWeight.bold,
@@ -198,7 +210,11 @@ class _HapusProdukState extends State<HapusProduk> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await ProdukController.deleteProduk(widget.produk.id!);
+
+                  Navigator.pop(context, true);
+                },
                 child: const Text(
                   "Ya, Hapus Sekarang",
                   style: TextStyle(
