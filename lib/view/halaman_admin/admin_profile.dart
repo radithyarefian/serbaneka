@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/view/login/pelanggan_login.dart';
 
 class AdminProfile extends StatefulWidget {
   const AdminProfile({super.key});
@@ -267,9 +268,17 @@ class _AdminProfileState extends State<AdminProfile> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  onPressed: () {},
-                  icon: const Icon(Icons.logout),
-                  label: const Text("Keluar dari Akun"),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => PelangganLogin()),
+                    );
+                  },
+                  icon: const Icon(Icons.logout, color: Colors.white),
+                  label: const Text(
+                    "Keluar dari Akun",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ],

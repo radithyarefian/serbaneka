@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:serbaneka/database/sqflite.dart';
 import 'package:serbaneka/model/admin_model.dart';
+import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
+import 'package:serbaneka/view/halaman_admin/admin_navbar.dart';
 import 'package:serbaneka/view/login/admin_login.dart';
 
 class AdminDaftar extends StatefulWidget {
@@ -763,6 +765,7 @@ class _AdminDaftarState extends State<AdminDaftar> {
                                         setState(() {
                                           _checkboxError = !_isRememberMe;
                                         });
+
                                         if (_formKey.currentState!.validate() &&
                                             _isRememberMe) {
                                           DBHelper.registerAdmin(
@@ -774,14 +777,32 @@ class _AdminDaftarState extends State<AdminDaftar> {
                                                       .text,
                                             ),
                                           );
+
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(
                                             const SnackBar(
                                               content: Text(
-                                                "Pendaftaran Berhasil",
+                                                "Pendaftaran admin berhasil",
+                                                style: TextStyle(
+                                                  fontFamily: "Inter",
+                                                ),
                                               ),
+                                              duration: Duration(seconds: 2),
                                             ),
+                                          );
+
+                                          Future.delayed(
+                                            const Duration(seconds: 2),
+                                            () {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AdminNavbar(),
+                                                ),
+                                              );
+                                            },
                                           );
                                         }
                                       },
@@ -806,7 +827,7 @@ class _AdminDaftarState extends State<AdminDaftar> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),

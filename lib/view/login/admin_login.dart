@@ -464,26 +464,36 @@ class _AdminLoginState extends State<AdminLogin> {
                                             password:
                                                 passwordAdminController.text,
                                           );
+
                                       if (login != null) {
                                         PreferenceHandler().storingIsLogin(
                                           true,
                                         );
+
                                         ScaffoldMessenger.of(
                                           context,
                                         ).showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                             content: Text("Login Berhasil"),
+                                            duration: Duration(seconds: 1),
                                           ),
                                         );
+
                                         await Future.delayed(
-                                          Duration(seconds: 2),
+                                          const Duration(seconds: 1),
                                         );
+
+                                        // HILANGKAN SNACKBAR SEBELUM PINDAH HALAMAN
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).clearSnackBars();
+
                                         context.pushReplacement(AdminNavbar());
                                       } else {
                                         ScaffoldMessenger.of(
                                           context,
                                         ).showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                             content: Text(
                                               "Login gagal, email atau password tidak terdaftar",
                                             ),
