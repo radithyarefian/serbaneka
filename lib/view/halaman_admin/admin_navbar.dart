@@ -48,11 +48,11 @@ class _AdminNavbarState extends State<AdminNavbar> {
           Positioned(
             left: 12,
             right: 12,
-            bottom: 10 + MediaQuery.of(context).padding.bottom,
+            bottom: 5 + MediaQuery.of(context).padding.bottom,
             child: Container(
               height: 70,
               decoration: BoxDecoration(
-                color: const Color(0xFFD5D5D5),
+                color: const Color(0xFFE3E0FD),
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
@@ -73,7 +73,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       vertical: 12,
                     ),
                     gap: 3,
-                    backgroundColor: const Color(0xFFD5D5D5),
+                    backgroundColor: const Color(0xFFE3E0FD),
 
                     color: inactiveColor,
                     activeColor: activeColor,

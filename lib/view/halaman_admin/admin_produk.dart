@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:serbaneka/database/produk_controller.dart';
 import 'package:serbaneka/model/produk_model.dart';
@@ -24,17 +23,20 @@ class _AdminProdukState extends State<AdminProduk> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
 
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const TambahProduk()),
-          ).then((value) {
-            setState(() {});
-          });
-        },
-        child: const Icon(Icons.add, color: Colors.white),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 70),
+        child: FloatingActionButton(
+          backgroundColor: Colors.deepPurple,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TambahProduk()),
+            ).then((value) {
+              setState(() {});
+            });
+          },
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
       ),
 
       body: SafeArea(

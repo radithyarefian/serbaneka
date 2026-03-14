@@ -281,6 +281,7 @@ class _AdminProfileState extends State<AdminProfile> {
                   ),
                 ),
               ),
+              const SizedBox(height: 120),
             ],
           ),
         ),
