@@ -35,7 +35,7 @@ dependencies:
   shared_preferences: ^2.5.4
   sqflite: ^2.4.2
   fl_chart: ^0.66.0
-  curved_navigation_bar: ^1.0.6
+  google_nav_bar: ^5.0.7
   image_picker: ^1.0.7
   flutter_svg: ^2.0.9
   flutter_launcher_icons: ^0.14.4
@@ -67,7 +67,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/navbar/
+    - assets/navbar_admin/
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/to/resolution-aware-images
     # For details regarding adding assets from package dependencies, see

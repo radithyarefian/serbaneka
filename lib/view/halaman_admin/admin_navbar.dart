@@ -1,10 +1,11 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
 import 'package:serbaneka/view/halaman_admin/admin_laporan.dart';
+import 'package:serbaneka/view/halaman_admin/admin_pesan.dart';
 import 'package:serbaneka/view/halaman_admin/admin_produk.dart';
 import 'package:serbaneka/view/halaman_admin/admin_profile.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AdminNavbar extends StatefulWidget {
   const AdminNavbar({super.key});
@@ -15,6 +16,10 @@ class AdminNavbar extends StatefulWidget {
 
 class _AdminNavbarState extends State<AdminNavbar> {
   int _currentIndex = 0;
+
+  Color activeColor = const Color(0xFF7B6EF6);
+  Color inactiveColor = Colors.black.withOpacity(0.7);
+
   void ontapItem(int index) {
     _currentIndex = index;
     setState(() {});
@@ -23,34 +28,131 @@ class _AdminNavbarState extends State<AdminNavbar> {
   static List<Widget> listWidget = [
     AdminBeranda(),
     AdminProduk(),
+    AdminPesan(),
     AdminLaporan(),
     AdminProfile(),
-  ];
-
-  final items = <Widget>[
-    SvgPicture.asset("assets/navbar/beranda.svg", width: 25, height: 25),
-    SvgPicture.asset("assets/navbar/produk.svg", width: 25, height: 25),
-    SvgPicture.asset("assets/navbar/laporan.svg", width: 25, height: 25),
-    SvgPicture.asset("assets/navbar/profil.svg", width: 25, height: 25),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: listWidget.elementAt(_currentIndex),
-      bottomNavigationBar: Theme(
-        data: Theme.of(
-          context,
-        ).copyWith(iconTheme: const IconThemeData(color: Colors.white)),
-        child: CurvedNavigationBar(
-          color: Color(0xFF7B6EF6),
-          backgroundColor: Colors.transparent,
-          height: 60,
-          animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 250),
-          items: items,
-          onTap: ontapItem,
-        ),
+      extendBody: true,
+      backgroundColor: Colors.transparent,
+
+      body: Stack(
+        children: [
+          /// HALAMAN
+          listWidget.elementAt(_currentIndex),
+
+          /// NAVBAR FLOATING
+          Positioned(
+            left: 12,
+            right: 12,
+            bottom: 10 + MediaQuery.of(context).padding.bottom,
+            child: Container(
+              height: 70,
+              decoration: BoxDecoration(
+                color: const Color(0xFFD5D5D5),
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: GNav(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
+                    gap: 3,
+                    backgroundColor: const Color(0xFFD5D5D5),
+
+                    color: inactiveColor,
+                    activeColor: activeColor,
+
+                    tabBackgroundColor: const Color(
+                      0xFF7B6EF6,
+                    ).withOpacity(0.20),
+
+                    selectedIndex: _currentIndex,
+                    onTabChange: ontapItem,
+
+                    tabs: [
+                      GButton(
+                        icon: Icons.circle,
+                        leading: SvgPicture.asset(
+                          "assets/navbar_admin/beranda.svg",
+                          width: 24,
+                          height: 25,
+                          color: _currentIndex == 0
+                              ? activeColor
+                              : inactiveColor,
+                        ),
+                        text: "Beranda",
+                      ),
+                      GButton(
+                        icon: Icons.circle,
+                        leading: SvgPicture.asset(
+                          "assets/navbar_admin/produk.svg",
+                          width: 25,
+                          height: 25,
+                          color: _currentIndex == 1
+                              ? activeColor
+                              : inactiveColor,
+                        ),
+                        text: "Produk",
+                      ),
+                      GButton(
+                        icon: Icons.circle,
+                        leading: SvgPicture.asset(
+                          "assets/navbar_admin/pesan.svg",
+                          width: 25,
+                          height: 25,
+                          color: _currentIndex == 2
+                              ? activeColor
+                              : inactiveColor,
+                        ),
+                        text: "Pesan",
+                      ),
+                      GButton(
+                        icon: Icons.circle,
+                        leading: SvgPicture.asset(
+                          "assets/navbar_admin/laporan.svg",
+                          width: 21,
+                          height: 25,
+                          color: _currentIndex == 3
+                              ? activeColor
+                              : inactiveColor,
+                        ),
+                        text: "Laporan",
+                      ),
+                      GButton(
+                        icon: Icons.circle,
+                        leading: SvgPicture.asset(
+                          "assets/navbar_admin/profil.svg",
+                          width: 23,
+                          height: 25,
+                          color: _currentIndex == 4
+                              ? activeColor
+                              : inactiveColor,
+                        ),
+                        text: "Profil",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
