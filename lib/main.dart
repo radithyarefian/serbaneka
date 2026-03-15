@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:serbaneka/database/preference.dart';
 import 'package:serbaneka/view/halaman_admin/admin_beranda.dart';
 import 'package:serbaneka/view/halaman_admin/admin_navbar.dart';
+import 'package:serbaneka/view/halaman_pelanggan/keranjang_produk_pelanggan.dart';
+import 'package:serbaneka/view/halaman_pelanggan/pelanggan_navbar.dart';
+import 'package:serbaneka/view/halaman_pelanggan/tambah_produk_pelanggan.dart';
 import 'package:serbaneka/view/login/admin_login.dart';
 import 'package:serbaneka/view/login/pelanggan_login.dart';
 import 'package:serbaneka/view/splash_screen/splash_screen.dart';
@@ -44,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         '/pelanggan': (context) => PelangganLogin(),
       },
       debugShowCheckedModeBanner: false,
-      home: const AdminNavbar(),
+      home: const KeranjangProdukPelanggan(),
     );
   }
 }
