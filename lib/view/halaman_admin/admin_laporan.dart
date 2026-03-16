@@ -620,7 +620,7 @@ class _AdminLaporanState extends State<AdminLaporan> {
                 ],
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 90),
             ],
           ),
         ),

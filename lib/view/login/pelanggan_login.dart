@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/database/preference.dart';
+import 'package:serbaneka/database/sqflite.dart';
+import 'package:serbaneka/extensions/navigator.dart';
+import 'package:serbaneka/model/pelanggan_model.dart';
+import 'package:serbaneka/view/halaman_pelanggan/pelanggan_navbar.dart';
+import 'package:serbaneka/view/login/pelanggan_daftar.dart';
 
 class PelangganLogin extends StatefulWidget {
   const PelangganLogin({super.key});
@@ -453,10 +459,50 @@ class _PelangganLoginState extends State<PelangganLogin> {
                                     maxWidth: 315,
                                   ), // sama dengan TextFormField
                                   child: ElevatedButton(
-                                    onPressed: () {
-                                      // : aksi login
-                                      if (_formKey.currentState!.validate()) {
-                                        // proses login
+                                    onPressed: () async {
+                                      final PelangganModel?
+                                      login = await DBHelper.loginPelanggan(
+                                        email: emailPelangganController.text,
+                                        password:
+                                            passwordPelangganController.text,
+                                      );
+
+                                      if (login != null) {
+                                        PreferenceHandler().storingIsLogin(
+                                          true,
+                                        );
+
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            content: Text("Login Berhasil"),
+                                            duration: Duration(seconds: 1),
+                                          ),
+                                        );
+
+                                        await Future.delayed(
+                                          const Duration(seconds: 1),
+                                        );
+
+                                        // HILANGKAN SNACKBAR SEBELUM PINDAH HALAMAN
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).clearSnackBars();
+
+                                        context.pushReplacement(
+                                          PelangganNavbar(),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Login gagal, email atau password tidak terdaftar",
+                                            ),
+                                          ),
+                                        );
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -608,7 +654,13 @@ class _PelangganLoginState extends State<PelangganLogin> {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            // nanti bisa diisi aksi klik
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const PelangganDaftar(),
+                                              ),
+                                            );
                                           },
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets

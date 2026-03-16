@@ -52,7 +52,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
             child: Container(
               height: 70,
               decoration: BoxDecoration(
-                color: const Color(0xFFE3E0FD),
+                color: const Color(0xFFCCC8F4),
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
@@ -73,7 +73,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       vertical: 12,
                     ),
                     gap: 3,
-                    backgroundColor: const Color(0xFFE3E0FD),
+                    backgroundColor: const Color(0xFFCCC8F4),
 
                     color: inactiveColor,
                     activeColor: activeColor,

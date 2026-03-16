@@ -51,7 +51,7 @@ class _PelangganNavbarState extends State<PelangganNavbar> {
             child: Container(
               height: 70,
               decoration: BoxDecoration(
-                color: const Color(0xFFE2F4F4),
+                color: const Color(0xFFC8F0F0),
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
@@ -72,7 +72,7 @@ class _PelangganNavbarState extends State<PelangganNavbar> {
                       vertical: 12,
                     ),
                     gap: 3,
-                    backgroundColor: const Color(0xFFE2F4F4),
+                    backgroundColor: const Color(0xFFC8F0F0),
 
                     color: inactiveColor,
                     activeColor: activeColor,
