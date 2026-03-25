@@ -89,7 +89,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       GButton(
                         icon: Icons.circle,
                         leading: SvgPicture.asset(
-                          "assets/navbar_admin/beranda.svg",
+                          "assets/images/navbar_admin/beranda.svg",
                           width: 24,
                           height: 25,
                           color: _currentIndex == 0
@@ -101,7 +101,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       GButton(
                         icon: Icons.circle,
                         leading: SvgPicture.asset(
-                          "assets/navbar_admin/produk.svg",
+                          "assets/images/navbar_admin/produk.svg",
                           width: 25,
                           height: 25,
                           color: _currentIndex == 1
@@ -113,7 +113,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       GButton(
                         icon: Icons.circle,
                         leading: SvgPicture.asset(
-                          "assets/navbar_admin/pesan.svg",
+                          "assets/images/navbar_admin/pesan.svg",
                           width: 25,
                           height: 25,
                           color: _currentIndex == 2
@@ -125,7 +125,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       GButton(
                         icon: Icons.circle,
                         leading: SvgPicture.asset(
-                          "assets/navbar_admin/laporan.svg",
+                          "assets/images/navbar_admin/laporan.svg",
                           width: 21,
                           height: 25,
                           color: _currentIndex == 3
@@ -137,7 +137,7 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       GButton(
                         icon: Icons.circle,
                         leading: SvgPicture.asset(
-                          "assets/navbar_admin/profil.svg",
+                          "assets/images/navbar_admin/profil.svg",
                           width: 23,
                           height: 25,
                           color: _currentIndex == 4

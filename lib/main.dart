@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         '/pelanggan': (context) => PelangganLogin(),
       },
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const AdminNavbar(),
     );
   }
 }
