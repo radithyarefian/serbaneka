@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:serbaneka/view/halaman_pelanggan/keranjang_produk_pelanggan.dart';
+
 import 'tambah_produk_pelanggan.dart';
 
 class PelangganBeranda extends StatefulWidget {
@@ -14,7 +16,6 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
     return Scaffold(
       body: Stack(
         children: [
-
           /// BACKGROUND
           Container(
             width: double.infinity,
@@ -23,10 +24,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF32B2B2),
-                  Color(0xFFFFFFFF),
-                ],
+                colors: [Color(0xFF32B2B2), Color(0xFFFFFFFF)],
               ),
             ),
           ),
@@ -37,14 +35,12 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
               padding: const EdgeInsets.only(top: 60),
               child: Column(
                 children: [
-
                   /// DISKON BANNER
                   SizedBox(
                     height: 120,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-
                         const SizedBox(width: 10),
 
                         Container(
@@ -53,9 +49,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             image: const DecorationImage(
-                              image: AssetImage(
-                                "assets/images/diskon1.jpg",
-                              ),
+                              image: AssetImage("assets/images/diskon1.jpg"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -69,9 +63,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             image: const DecorationImage(
-                              image: AssetImage(
-                                "assets/images/diskon1.jpg",
-                              ),
+                              image: AssetImage("assets/images/diskon1.jpg"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -88,10 +80,8 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-
                       Column(
                         children: [
-
                           Container(
                             width: 50,
                             height: 50,
@@ -99,18 +89,20 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                               color: Color(0xFF2FA7A4),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.sports_basketball,color: Colors.white),
+                            child: const Icon(
+                              Icons.sports_basketball,
+                              color: Colors.white,
+                            ),
                           ),
 
                           const SizedBox(height: 5),
 
-                          const Text("Olahraga")
+                          const Text("Olahraga"),
                         ],
                       ),
 
                       Column(
                         children: [
-
                           Container(
                             width: 50,
                             height: 50,
@@ -118,18 +110,20 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                               color: Color(0xFF2FA7A4),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.checkroom,color: Colors.white),
+                            child: const Icon(
+                              Icons.checkroom,
+                              color: Colors.white,
+                            ),
                           ),
 
                           const SizedBox(height: 5),
 
-                          const Text("Seragam")
+                          const Text("Seragam"),
                         ],
                       ),
 
                       Column(
                         children: [
-
                           Container(
                             width: 50,
                             height: 50,
@@ -137,18 +131,20 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                               color: Color(0xFF2FA7A4),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.menu_book,color: Colors.white),
+                            child: const Icon(
+                              Icons.menu_book,
+                              color: Colors.white,
+                            ),
                           ),
 
                           const SizedBox(height: 5),
 
-                          const Text("Buku Tulis")
+                          const Text("Buku Tulis"),
                         ],
                       ),
 
                       Column(
                         children: [
-
                           Container(
                             width: 50,
                             height: 50,
@@ -156,15 +152,17 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                               color: Color(0xFF2FA7A4),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.electrical_services,color: Colors.white),
+                            child: const Icon(
+                              Icons.electrical_services,
+                              color: Colors.white,
+                            ),
                           ),
 
                           const SizedBox(height: 5),
 
-                          const Text("Alat Listrik")
+                          const Text("Alat Listrik"),
                         ],
                       ),
-
                     ],
                   ),
 
@@ -180,24 +178,23 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                     ),
                     child: Column(
                       children: [
-
                         const SizedBox(height: 10),
 
                         const Row(
                           children: [
-
                             SizedBox(width: 10),
 
-                            Icon(Icons.local_fire_department,color: Colors.orange),
+                            Icon(
+                              Icons.local_fire_department,
+                              color: Colors.orange,
+                            ),
 
                             SizedBox(width: 10),
 
                             Text(
                               "Sedang Viral",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
 
@@ -212,7 +209,6 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                           ),
                           child: Row(
                             children: [
-
                               const SizedBox(width: 10),
 
                               Container(
@@ -221,7 +217,9 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   image: const DecorationImage(
-                                    image: AssetImage("assets/images/buku_sidu.png"),
+                                    image: AssetImage(
+                                      "assets/images/buku_sidu.png",
+                                    ),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -233,7 +231,6 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-
                                   Text(
                                     "Trending",
                                     style: TextStyle(
@@ -248,14 +245,11 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
                                 ],
-                              )
-
+                              ),
                             ],
                           ),
-                        )
-
+                        ),
                       ],
                     ),
                   ),
@@ -269,9 +263,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Rekomendasi Untukmu",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -282,7 +274,6 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-
                       Container(
                         width: 170,
                         height: 220,
@@ -292,10 +283,8 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                         ),
                         child: Stack(
                           children: [
-
                             Column(
                               children: [
-
                                 const SizedBox(height: 10),
 
                                 Image.asset(
@@ -326,8 +315,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                     color: Color(0xFF2FA7A4),
                                     fontWeight: FontWeight.bold,
                                   ),
-                                )
-
+                                ),
                               ],
                             ),
 
@@ -359,8 +347,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                   ),
                                 ),
                               ),
-                            )
-
+                            ),
                           ],
                         ),
                       ),
@@ -374,10 +361,8 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                         ),
                         child: Stack(
                           children: [
-
                             Column(
                               children: [
-
                                 const SizedBox(height: 10),
 
                                 Image.asset(
@@ -408,8 +393,7 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                     color: Color(0xFF2FA7A4),
                                     fontWeight: FontWeight.bold,
                                   ),
-                                )
-
+                                ),
                               ],
                             ),
 
@@ -441,17 +425,14 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                                   ),
                                 ),
                               ),
-                            )
-
+                            ),
                           ],
                         ),
                       ),
-
                     ],
                   ),
 
                   const SizedBox(height: 90),
-
                 ],
               ),
             ),
@@ -464,7 +445,6 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   Container(
                     width: 290,
                     height: 35,
@@ -474,7 +454,6 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
                     ),
                     child: const Row(
                       children: [
-
                         SizedBox(width: 10),
 
                         Icon(Icons.search, size: 18),
@@ -483,24 +462,30 @@ class _Pelanggan_berandaState extends State<PelangganBeranda> {
 
                         Text(
                           "Cari Sepatu, tas sekolah, alat listrik...",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        )
-
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
                       ],
                     ),
                   ),
 
                   const SizedBox(width: 10),
 
-                  const Icon(Icons.shopping_cart_outlined),
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart_outlined),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const KeranjangProdukPelanggan(),
+                        ),
+                      );
+                    },
+                  ),
 
                   const SizedBox(width: 10),
 
-                  const Icon(Icons.chat_bubble_outline)
-
+                  const Icon(Icons.chat_bubble_outline),
                 ],
               ),
             ),

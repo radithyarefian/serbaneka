@@ -4,7 +4,8 @@ class KeranjangProdukPelanggan extends StatefulWidget {
   const KeranjangProdukPelanggan({super.key});
 
   @override
-  State<KeranjangProdukPelanggan> createState() => _KeranjangProdukPelangganState();
+  State<KeranjangProdukPelanggan> createState() =>
+      _KeranjangProdukPelangganState();
 }
 
 class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
@@ -49,7 +50,12 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
           "Keranjang Saya",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -58,13 +64,12 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
           Padding(
             padding: EdgeInsets.only(right: 15),
             child: Icon(Icons.chat_bubble_outline, color: Colors.black),
-          )
+          ),
         ],
       ),
 
       body: Stack(
         children: [
-
           /// LIST PRODUK
           ListView.builder(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 120),
@@ -79,7 +84,6 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                 ),
                 child: Row(
                   children: [
-
                     /// CHECKBOX
                     Checkbox(
                       value: selected[index],
@@ -107,7 +111,6 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           const Text(
                             "Buku Kampus",
                             style: TextStyle(
@@ -121,7 +124,6 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-
                               /// HARGA
                               const Text(
                                 "Rp 37.000",
@@ -135,7 +137,6 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                               /// QUANTITY
                               Row(
                                 children: [
-
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
@@ -151,9 +152,13 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                                   ),
 
                                   Container(
-                                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                    ),
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 3),
+                                      horizontal: 8,
+                                      vertical: 3,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: Colors.grey[400],
                                       borderRadius: BorderRadius.circular(6),
@@ -173,12 +178,12 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               );
@@ -198,7 +203,6 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
               ),
               child: Row(
                 children: [
-
                   /// CHECKBOX SEMUA
                   Checkbox(
                     value: semuaDipilih,
@@ -229,7 +233,9 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                   /// BUTTON CHECKOUT
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(10),
@@ -238,11 +244,11 @@ class _KeranjangProdukPelangganState extends State<KeranjangProdukPelanggan> {
                       "Checkout ($totalItem)",
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
