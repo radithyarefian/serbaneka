@@ -13,7 +13,6 @@ class _AdminLaporanState extends State<AdminLaporan> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(18),

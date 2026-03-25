@@ -1,4 +1,4 @@
-package com.example.serbaneka
+package com.ppkd.serbaneka
 
 import io.flutter.embedding.android.FlutterActivity
 
