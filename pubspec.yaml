@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/navbar_admin/
+    - assets/images/navbar_pelanggan/
     - assets/images/beranda_admin/
     - assets/icons/
     # An image asset can refer to one or more resolution-specific "variants", see

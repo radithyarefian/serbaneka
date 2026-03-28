@@ -5,6 +5,7 @@ import 'package:serbaneka/extensions/navigator.dart';
 import 'package:serbaneka/model/admin_model.dart';
 import 'package:serbaneka/view/halaman_admin/admin_navbar.dart';
 import 'package:serbaneka/view/login/admin_daftar.dart';
+import 'package:serbaneka/view/login/pelanggan_login.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -26,6 +27,8 @@ class _AdminLoginState extends State<AdminLogin> {
     setState(() {});
   }
 
+  int _selectedTab = 1; // 1 = Admin aktif
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,36 +48,6 @@ class _AdminLoginState extends State<AdminLogin> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                /// BAGIAN LOGO,JUDUL LOGO,DAN DESKRIPSI LOGO ///
-                const SizedBox(height: 20),
-                // LOGO SERBANEKA //
-                Image.asset("assets/images/logo_serbaneka.png", height: 85),
-                const SizedBox(height: 5),
-
-                // JUDUL //
-                const Text(
-                  "SERBANEKA",
-                  style: TextStyle(
-                    fontFamily: "ADLaMDisplay",
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 3),
-
-                // DESKRIPSI //
-                const Text(
-                  "Kebutuhan sekolah dan harian,kini lebih \npraktis dan mudah",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: Color(0x80000000), // HITAM 50%
-                  ),
-                ),
-                const SizedBox(height: 25),
-
                 /// BAGIAN PELANGGAN DAN ADMIN ///
                 Row(
                   children: [
@@ -84,32 +57,97 @@ class _AdminLoginState extends State<AdminLogin> {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            print("Login Pelanggan di Klik");
+                            setState(() {
+                              _selectedTab = 0;
+                            });
+
+                            Future.delayed(
+                              const Duration(milliseconds: 200),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PelangganLogin(),
+                                  ),
+                                );
+                              },
+                            );
                           },
-                          child: Text(
-                            "Pelanggan",
-                            style: TextStyle(
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15,
-                              color: Color(0x80000000), // HITAM 50%
-                            ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Pelanggan",
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 15,
+                                  color: _selectedTab == 0
+                                      ? Color(0xFF7B6EF6)
+                                      : Color(0x80000000),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+
+                              // GARIS BAWAH PELANGGAN
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                height: 3,
+                                width: _selectedTab == 0 ? 60 : 0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF7B6EF6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
+
                     SizedBox(width: 80),
+
                     // TEXT ADMIN (AKTIF) //
                     Expanded(
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Admin",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w900,
-                            fontSize: 15,
-                            color: Color(0xFF7B6EF6), // warna ungu utama
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedTab = 1;
+                            });
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Admin",
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 15,
+                                  color: _selectedTab == 1
+                                      ? Color(0xFF7B6EF6)
+                                      : Color(0x80000000),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+
+                              // GARIS BAWAH ADMIN
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                height: 3,
+                                width: _selectedTab == 1 ? 60 : 0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF7B6EF6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

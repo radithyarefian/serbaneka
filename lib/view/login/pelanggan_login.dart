@@ -4,6 +4,7 @@ import 'package:serbaneka/database/sqflite.dart';
 import 'package:serbaneka/extensions/navigator.dart';
 import 'package:serbaneka/model/pelanggan_model.dart';
 import 'package:serbaneka/view/halaman_pelanggan/pelanggan_navbar.dart';
+import 'package:serbaneka/view/login/admin_login.dart';
 import 'package:serbaneka/view/login/pelanggan_daftar.dart';
 
 class PelangganLogin extends StatefulWidget {
@@ -28,6 +29,8 @@ class _PelangganLoginState extends State<PelangganLogin> {
     setState(() {});
   }
 
+  int _selectedTab = 0; // 0 = Pelanggan, 1 = Admin
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,71 +50,105 @@ class _PelangganLoginState extends State<PelangganLogin> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                /// BAGIAN LOGO,JUDUL LOGO,DAN DESKRIPSI LOGO ///
-                const SizedBox(height: 20),
-                // LOGO SERBANEKA //
-                Image.asset("assets/images/logo_serbaneka.png", height: 85),
-                const SizedBox(height: 5),
-
-                // JUDUL //
-                const Text(
-                  "SERBANEKA",
-                  style: TextStyle(
-                    fontFamily: "ADLaMDisplay",
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 3),
-
-                // DESKRIPSI //
-                const Text(
-                  "Kebutuhan sekolah dan harian,kini lebih \npraktis dan mudah",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                    color: Color(0x80000000), // HITAM 50%
-                  ),
-                ),
-                const SizedBox(height: 25),
-
                 /// BAGIAN PELANGGAN DAN ADMIN ///
                 Row(
                   children: [
-                    // TEXT PELANGGAN (AKTIF) //
+                    // TEXT PELANGGAN //
                     Expanded(
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: Text(
-                          "Pelanggan",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w900,
-                            fontSize: 15,
-                            color: Color(0xFF32B2B2), // warna Hijau utama
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedTab = 0;
+                            });
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Pelanggan",
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 15,
+                                  color: _selectedTab == 0
+                                      ? Color(0xFF32B2B2)
+                                      : Color(0x80000000),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+
+                              // GARIS BAWAH PELANGGAN
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                height: 3,
+                                width: _selectedTab == 0 ? 60 : 0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF32B2B2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
+
                     SizedBox(width: 80),
-                    // TEXT ADMIN (TIDAK AKTIF) //
+
+                    // TEXT ADMIN //
                     Expanded(
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/admin');
+                            print("Login Admin di Klik");
+                            setState(() {
+                              _selectedTab = 1;
+                            });
+
+                            Future.delayed(
+                              const Duration(milliseconds: 200),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const AdminLogin(),
+                                  ),
+                                );
+                              },
+                            );
                           },
-                          child: Text(
-                            "Admin",
-                            style: TextStyle(
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15,
-                              color: Color(0x80000000), // HITAM 50%
-                            ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Admin",
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 15,
+                                  color: _selectedTab == 1
+                                      ? Color(0xFF32B2B2)
+                                      : Color(0x80000000),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+
+                              // GARIS BAWAH ADMIN
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                                height: 3,
+                                width: _selectedTab == 1 ? 60 : 0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF32B2B2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -159,14 +196,14 @@ class _PelangganLoginState extends State<PelangganLogin> {
                     ),
                     const SizedBox(height: 5),
                     // TEXT SUBTITLE //
-                    const Text(
+                    Text(
                       "Masukkan identitas Pelanggan anda",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: "Inter",
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
-                        color: Color(0x80000000), // hitam 50%
+                        color: Colors.black.withOpacity(0.5),
                       ),
                     ),
                   ],

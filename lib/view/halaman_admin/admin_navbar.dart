@@ -20,10 +20,27 @@ class _AdminNavbarState extends State<AdminNavbar> {
   Color activeColor = const Color(0xFF7B6EF6);
   Color inactiveColor = Colors.black.withOpacity(0.7);
 
-  void ontapItem(int index) {
+void ontapItem(int index) {
+
+  /// LIST NAMA NAVBAR
+  List<String> navbarNames = [
+    "Beranda",
+    "Produk",
+    "Pesan",
+    "Laporan",
+    "Profil",
+  ];
+
+  /// PRINT KE CONSOLE
+  print(
+  "Navbar ${navbarNames[index]} diklik (index: $index)"
+);
+
+  /// PINDAH HALAMAN
+  setState(() {
     _currentIndex = index;
-    setState(() {});
-  }
+  });
+}
 
   static List<Widget> listWidget = [
     AdminBeranda(),
